@@ -9,7 +9,6 @@ public class Camping {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long campId;  // 캠핑장 ID
-
     private String factNm;  // 시설 이름
     private String lineIntro;  // 한 줄 소개
     private String intro;  // 소개

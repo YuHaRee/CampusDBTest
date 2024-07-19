@@ -13,3 +13,4 @@ aws:
   dynamodb:
     endpoint: http://localhost:8001
     region: ap-northeast-2
+

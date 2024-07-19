@@ -23,4 +23,5 @@ public class CampingService {
     public Optional<Camping> getCamping(Long campId) {
         return campingRepository.findById(campId);
     }
+    
 }

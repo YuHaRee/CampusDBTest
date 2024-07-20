@@ -24,4 +24,5 @@ public class CampingController {
     public Camping getCamping(@PathVariable Long campId) {
         return campingService.getCamping(campId).orElseThrow(() -> new RuntimeException("Camping not found"));
     }
+
 }

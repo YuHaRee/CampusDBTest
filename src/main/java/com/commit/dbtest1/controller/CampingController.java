@@ -5,6 +5,8 @@ import com.commit.dbtest1.service.CampingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1/campings")
 public class CampingController {
@@ -15,14 +17,15 @@ public class CampingController {
         this.campingService = campingService;
     }
 
-    @PostMapping
-    public Camping createCamping(@RequestBody Camping camping) {
-        return campingService.saveCamping(camping);
-    }
-
     @GetMapping("/{campId}")
     public Camping getCamping(@PathVariable Long campId) {
-        return campingService.getCamping(campId).orElseThrow(() -> new RuntimeException("Camping not found"));
+        return campingService.findById(campId).orElseThrow(() -> new RuntimeException("Camping not found"));
     }
 
+    @GetMapping
+    public List<Camping> filterCamping(@RequestParam(required = false) String doName,
+                                       @RequestParam(required = false) String sigunguName) {
+        return campingService.filterByAttributes(doName, sigunguName);
+    }
 }
+

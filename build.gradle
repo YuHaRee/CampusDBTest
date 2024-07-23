@@ -30,10 +30,12 @@ dependencies {
     // AWS SDK for DynamoDB
     implementation("software.amazon.awssdk:dynamodb-enhanced:2.26.19")  // 최신 버전으로 업데이트
 
-
     // 테스트 의존성
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Java Faker
+    implementation 'com.github.javafaker:javafaker:1.0.2'
 }
 
 

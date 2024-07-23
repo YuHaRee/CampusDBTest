@@ -1,10 +1,12 @@
 package com.commit.dbtest1.controller;
 
-import com.commit.dbtest1.entity.Camping;
+import com.commit.dbtest1.dto.CampingDTO;
 import com.commit.dbtest1.service.CampingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -17,16 +19,16 @@ public class CampingController {
         this.campingService = campingService;
     }
 
-    // 캠핑장 ID로 캠핑장 정보를 조회
-    @GetMapping("/{campId}")
-    public Camping getCamping(@PathVariable Long campId) {
-        return campingService.findById(campId).orElseThrow(() -> new RuntimeException("Camping not found"));
-    }
-
-    // 캠핑장 리스트를 필터링 조건에 따라 조회
     @GetMapping
-    public List<Camping> filterCamping(@RequestParam(required = false) String doName,
-                                       @RequestParam(required = false) String sigunguName) {
-        return campingService.filterByAttributes(doName, sigunguName);
+    public ResponseEntity<List<CampingDTO>> getCampings(CampingDTO filter,
+                                                        @RequestParam(required = false) LocalDateTime cursor,
+                                                        @RequestParam(defaultValue = "10") int limit) {
+        if (cursor == null) {
+            cursor = LocalDateTime.MIN;
+        }
+
+        List<CampingDTO> campings = campingService.getCampingsWithCursor(filter, cursor, limit);
+
+        return ResponseEntity.ok(campings);
     }
 }
